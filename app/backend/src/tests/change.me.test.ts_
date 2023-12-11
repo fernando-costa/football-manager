@@ -5,6 +5,7 @@ import chaiHttp = require('chai-http');
 
 import { app } from '../app';
 import Example from '../database/models/ExampleModel';
+import SequelizeTeam from '../database/models';
 
 import { Response } from 'superagent';
 
