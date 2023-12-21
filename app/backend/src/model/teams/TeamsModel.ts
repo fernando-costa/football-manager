@@ -1,6 +1,6 @@
-import { ITeam } from '../Interfaces/Teams/ITeam';
-import { ITeamsModel } from '../Interfaces/Teams/ITeamsModel';
-import SequelizeTeam from '../database/models/SequelizeTeam';
+import { ITeam } from '../../Interfaces/Teams/ITeam';
+import { ITeamsModel } from '../../Interfaces/Teams/ITeamsModel';
+import SequelizeTeam from '../../database/models/SequelizeTeam';
 
 export default class TeamsModel implements ITeamsModel {
   private model = SequelizeTeam;
