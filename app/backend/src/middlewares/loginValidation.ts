@@ -10,7 +10,7 @@ const validateLogin = async (req: Request, res: Response, next: NextFunction) =>
   }
 
   if (!emailRegex.test(email) || !validPassword) {
-    return res.status(400).json({ message: 'Invalid email or password' });
+    return res.status(401).json({ message: 'Invalid email or password' });
   }
   next();
 };
