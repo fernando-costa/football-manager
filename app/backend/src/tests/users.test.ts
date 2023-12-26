@@ -13,6 +13,7 @@ chai.use(chaiHttp);
 const { expect } = chai;
 
 import {
+  users,
   validLoginBody,
   emptyEmailLoginBody,
   emptyPasswordLoginBody,
@@ -21,6 +22,8 @@ import {
   shortPasswdLoginBody,
   inexistantUserLoginBody,
 } from './mocks/users/users.mocks'
+import { IUser } from '../Interfaces/User/IUser';
+import JWT from '../utils/JWT';
 
 const lackingFieldMessage = { message: 'All fields must be filled' }
 
@@ -69,6 +72,7 @@ describe('Testing Login:', () => {
     });
 
     it('user is non existant', async function() {
+      sinon.stub(SequelizeUser, 'findOne').resolves(null);
       const { status, body } = await chai.request(app).post('/login')
         .send(inexistantUserLoginBody);
 
@@ -80,13 +84,15 @@ describe('Testing Login:', () => {
   });
 
   it('should succeed with proper credentials', async function() {
+    const expectedToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAdXNlci5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcwMzYyNzk0MCwiZXhwIjoxNzA0NDkxOTQwfQ.QuyV9VNG7FgKrohj2iW0KS5Ljg-SvDqqOMtBLq46VDI';
+    sinon.stub(SequelizeUser, 'findOne').resolves(users[1] as any);
+    sinon.stub(JWT, 'sign').returns(expectedToken)
     const { status, body } = await chai.request(app).post('/login')
       .send(validLoginBody);
 
     expect(status).to.equal(200);
-    expect(body).to.be.deep.equal({
-    'token': '$2a$08$Y8Abi8jXvsXyqm.rmp0B.uQBA5qUz7T6Ghlg/CvVr/gLxYj5UAZVO',
-    });
+    expect(body).to.be.deep.equal({ token: 
+    expectedToken })
   });
 
   afterEach(sinon.restore);

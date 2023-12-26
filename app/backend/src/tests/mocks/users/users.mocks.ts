@@ -65,6 +65,7 @@ const inexistantUserLoginBody = {
 }
 
 export {
+  users,
   validLoginBody,
   emptyEmailLoginBody,
   emptyPasswordLoginBody,
