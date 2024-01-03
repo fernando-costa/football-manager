@@ -1,9 +1,8 @@
 import { Identifiable } from '..';
+import { IScore } from './IScore';
 
-export interface IMatch extends Identifiable {
+export interface IMatch extends Identifiable, IScore {
   homeTeamId: number;
-  homeTeamGoals: number;
   awayTeamId: number;
-  awayTeamGoals: number;
   inProgress: boolean;
 }
