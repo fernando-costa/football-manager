@@ -38,4 +38,10 @@ export default class MatchesModel implements IMatchesModel<IMatch> {
     if (dbData === null) return null;
     return dbData;
   }
+
+  async updateById(id: number, updatedMatch: Partial<IMatch>): Promise<IMatch | null> {
+    const dbData = await this.model.update({ ...updatedMatch }, { where: { id } });
+    if (dbData === null) return null;
+    return this.findById(id);
+  }
 }
