@@ -1,15 +1,15 @@
 import { IMatch } from '../Interfaces/Matches/IMatch';
-import { ICRUDModelReader } from '../Interfaces/ICRUDModel';
+import { IMatchesModel } from '../Interfaces/Matches/IMatchesModel';
 import MatchesModel from '../model/matches/MatchesModel';
 import { ServiceResponse } from '../Interfaces/ServiceResponse';
 
 export default class MatchesService {
   constructor(
-    private matchesModel: ICRUDModelReader<IMatch> = new MatchesModel(),
+    private matchesModel: IMatchesModel<IMatch> = new MatchesModel(),
   ) {}
 
-  public async getAllMatches(): Promise<ServiceResponse<IMatch[]>> {
-    const allTeams = await this.matchesModel.findAll();
+  public async getAllMatches(inProgress?: boolean | undefined): Promise<ServiceResponse<IMatch[]>> {
+    const allTeams = await this.matchesModel.findAll(inProgress);
     return { status: 'SUCCESSFUL', data: allTeams };
   }
 

@@ -8,7 +8,15 @@ export default class MatchesController {
   ) {}
 
   public async getAllMatches(_req: Request, res: Response) {
-    const serviceResponse = await this.matchesService.getAllMatches();
+    let inProgress: boolean | undefined;
+
+    if (_req.query.inProgress === 'true') {
+      inProgress = true;
+    } else if (_req.query.inProgress === 'false') {
+      inProgress = false;
+    }
+
+    const serviceResponse = await this.matchesService.getAllMatches(inProgress);
     return res.status(200).json(serviceResponse.data);
   }
 
