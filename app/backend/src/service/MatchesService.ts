@@ -1,8 +1,12 @@
 import { IMatch } from '../Interfaces/Matches/IMatch';
 import { IMatchesModel } from '../Interfaces/Matches/IMatchesModel';
 import MatchesModel from '../model/matches/MatchesModel';
-import { ServiceMessage, ServiceResponse } from '../Interfaces/ServiceResponse';
+import {
+  ServiceMessage,
+  ServiceResponse,
+} from '../Interfaces/ServiceResponse';
 import { IScore } from '../Interfaces/Matches/IScore';
+import { NewEntity } from '../Interfaces';
 
 export default class MatchesService {
   constructor(
@@ -30,5 +34,18 @@ export default class MatchesService {
     const updatedMatch = { ...match, homeTeamGoals, awayTeamGoals };
     await this.matchesModel.updateById(Number(id), updatedMatch);
     return { status: 'SUCCESSFUL', data: { message: 'Updated' } };
+  }
+
+  public async createMatch(newMatch: NewEntity<IMatch>): Promise<ServiceResponse<IMatch | null>> {
+    const { homeTeamId, awayTeamId } = newMatch;
+    const validHomeTeam = await this.matchesModel.findById(Number(homeTeamId));
+    const validAwayTeam = await this.matchesModel.findById(Number(awayTeamId));
+    if (!validHomeTeam || !validAwayTeam) {
+      return { status: 'NOT_FOUND',
+        data: { message: 'There is no team with such id!' } };
+    }
+
+    const createdMatch = await this.matchesModel.createMatch(newMatch);
+    return { status: 'SUCCESSFUL', data: createdMatch };
   }
 }
