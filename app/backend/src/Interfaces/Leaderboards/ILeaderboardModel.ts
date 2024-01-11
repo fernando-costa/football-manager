@@ -1,5 +1,5 @@
 import { TeamScore } from './TeamScore';
 
 export interface ILeaderboardModel {
-  getHomeScore(): Promise<TeamScore[] | undefined>
+  getScore(matchType: string): Promise<TeamScore[] | undefined>
 }

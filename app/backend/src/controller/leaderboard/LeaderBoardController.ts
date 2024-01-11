@@ -7,8 +7,9 @@ export default class LeaderboardController {
     private leaderboardService = new LeaderboardService(),
   ) {}
 
-  public async getHomeScore(_req: Request, res: Response) {
-    const serviceResponse = await this.leaderboardService.getHomeScore();
+  public async getScore(_req: Request, res: Response) {
+    const matchType = _req.path.split('/')[1];
+    const serviceResponse = await this.leaderboardService.getScore(matchType);
     return res.status(200).json(serviceResponse.data);
   }
 }
