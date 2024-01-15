@@ -9,4 +9,6 @@ router.get('/home', (req: Request, res: Response) => leaderboardController.getSc
 
 router.get('/away', (req: Request, res: Response) => leaderboardController.getScore(req, res));
 
+router.get('/', (req: Request, res: Response) => leaderboardController.getScore(req, res));
+
 export default router;
