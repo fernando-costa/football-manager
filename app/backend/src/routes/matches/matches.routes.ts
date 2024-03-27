@@ -15,6 +15,11 @@ router.post(
 );
 
 router.get(
+  '/:id',
+  (req: Request, res: Response) => matchesController.getMatchById(req, res),
+);
+
+router.get(
   '/',
   (req: Request, res: Response) => matchesController.getAllMatches(req, res),
 );

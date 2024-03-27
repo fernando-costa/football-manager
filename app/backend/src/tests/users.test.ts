@@ -100,23 +100,3 @@ describe('Testing Login:', () => {
 
   afterEach(sinon.restore);
 });
-
-// describe('Testing Token:', () => {
-//   it('should get user role with proper token', async function() {
-//     sinon.stub(SequelizeUser, 'create').resolves(users[1] as any);
-//     sinon.stub(SequelizeUser, 'findOne').resolves(null);
-//     sinon.stub(JWT, 'verify').resolves();
-//     sinon.stub(validateToken);
-
-//     const { email, password } = users[1] as IUser;
-
-//     const { status, body } = await chai.request(app).get('/login/role')
-//       .set('authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InVzZXJAdXNlci5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTcwNDIwODkyMSwiZXhwIjoxNzA1MDcyOTIxfQ.9_oIjQ8pOmvL011Z70As8Hutm60-f2jvAV0ppGrycD8');
-//       // .send({ email, password });
-
-//     expect(status).to.equal(200);
-//     expect(body).to.deep.equal({ role: 'user' });
-//   });
-
-//   afterEach(sinon.restore);
-// });

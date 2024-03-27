@@ -20,6 +20,15 @@ export default class MatchesController {
     return res.status(200).json(serviceResponse.data);
   }
 
+  public async getMatchById(_req: Request, res: Response) {
+    const { id } = _req.params;
+    const serviceResponse = await this.matchesService.getMatchById(id);
+    if (serviceResponse.status !== 'SUCCESSFUL') {
+      return res.status(mapStatusHTTP(serviceResponse.status)).json(serviceResponse.data);
+    }
+    return res.status(200).json(serviceResponse.data);
+  }
+
   public async finishMatchById(req: Request, res: Response) {
     const { id } = req.params;
     const serviceResponse = await this.matchesService.finishMatchById(Number(id));
